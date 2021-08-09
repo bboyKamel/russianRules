@@ -7,7 +7,7 @@ public class RussianRouletteService {
     public RussianRouletteService() {
     }
     
-    boolean value = false;
+    boolean value = true;
     int count = 0;
     
     public boolean checkRussianRules(boolean news) {
