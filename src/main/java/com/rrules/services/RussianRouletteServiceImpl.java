@@ -2,7 +2,7 @@
 package com.rrules.services;
 
 
-public class RussianRouletteServiceImpl {
+public class RussianRouletteServiceImpl implements RussianRouletteService {
 
     public RussianRouletteServiceImpl() {
     }
