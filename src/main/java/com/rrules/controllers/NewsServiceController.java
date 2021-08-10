@@ -1,7 +1,8 @@
 
 package com.rrules.controllers;
 
-import com.rrules.services.RandomMessageService;
+import com.rrules.services.RandomMessageServiceImpl;
+import com.rrules.services.RussianRouletteServiceImpl;
 import com.rrules.web.MessageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,14 +23,17 @@ public class NewsServiceController {
     String goodNewsUrl;
     
     @Autowired
-    RandomMessageService randomMessageService;
+    RussianRouletteServiceImpl rRouletteService;
+    
+    @Autowired
+    RandomMessageServiceImpl randomMessageService;
     
     @Autowired
     RestTemplate restTemplate;
     
     @GetMapping(path = "/news", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity randomNews() {        
-        String message = randomMessageService.randomMessage();        
+        String message = randomMessageService.randomMessage(rRouletteService.secondRevolver());        
     return new ResponseEntity(message, HttpStatus.OK);
     }
     

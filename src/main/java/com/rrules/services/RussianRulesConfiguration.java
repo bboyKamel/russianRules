@@ -15,13 +15,13 @@ public class RussianRulesConfiguration {
     String goodNewsUrl;    
     
     @Bean
-    RussianRouletteService russianRouletteService() {
-        return new RussianRouletteService();
+    RussianRouletteServiceImpl russianRouletteService() {
+        return new RussianRouletteServiceImpl();
     }
     
     @Bean
-    RandomMessageService randomMessageService(RestTemplate restTemplate) {
-        return new RandomMessageService(restTemplate);
+    RandomMessageServiceImpl randomMessageService(RestTemplate restTemplate) {
+        return new RandomMessageServiceImpl(restTemplate);
     }
     
     @Bean

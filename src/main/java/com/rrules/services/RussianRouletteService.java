@@ -1,23 +1,10 @@
 
 package com.rrules.services;
 
-
-public class RussianRouletteService {
-
-    public RussianRouletteService() {
-    }
+public interface RussianRouletteService {
     
-    boolean value = true;
-    int count = 0;
+    public boolean firsRevolver();
     
-    public boolean checkRussianRules(boolean news) {
-        if(news == value) {
-            count++;
-        } else {
-            count = 0;
-            value = news;
-        };
-    return count >= 6 ? !news : news;
-    }
+    public boolean secondRevolver();
     
 }
