@@ -7,4 +7,6 @@ public interface RussianRouletteService {
     
     public boolean secondRevolver();
     
+    public boolean checkRussianRules(boolean shot);
+    
 }
