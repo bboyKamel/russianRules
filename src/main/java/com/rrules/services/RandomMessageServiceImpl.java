@@ -21,50 +21,11 @@ public class RandomMessageServiceImpl implements RandomMessageService {
     RestTemplate restTemplate;
     
     ResponseEntity<MessageDTO> response; 
-    
-//    @Autowired
-//    RussianRouletteService rRouletteService;
 
-//    public RandomMessageService(RestTemplate restTemplate) {        
-//        this.restTemplate = restTemplate;
-//    }   
-
-    public String randomMessage(boolean russianRoulette) {        
-//      boolean randomMessage = rRouletteService.checkRussianRules(firsRevolver()); 
-        return findCorrectMessage(russianRoulette);
-    }
-    
-    public String findCorrectMessage(boolean whichMessage){
-        System.out.println(whichMessage);
-        String serviceUrl = whichMessage ? goodNewsUrl : badNewsUrl;
+    public ResponseEntity<MessageDTO> findCorrectMessage(boolean whichMessage){
+        String serviceUrl = whichMessage == true ? goodNewsUrl : badNewsUrl;
         response = restTemplate.getForEntity(serviceUrl, MessageDTO.class);
-        return response.getBody().getMessage();
-    }
-
-    public String getBadNewsUrl() {
-        return badNewsUrl;
-    }
-
-    public void setBadNewsUrl(String badNewsUrl) {
-        this.badNewsUrl = badNewsUrl;
-    }
-
-    public String getGoodNewsUrl() {
-        return goodNewsUrl;
-    }
-
-    public void setGoodNewsUrl(String goodNewsUrl) {
-        this.goodNewsUrl = goodNewsUrl;
-    }
-
-    public ResponseEntity<MessageDTO> getResponse() {
         return response;
     }
-
-    public void setResponse(ResponseEntity<MessageDTO> response) {
-        this.response = response;
-    }
-    
-    
 
 }

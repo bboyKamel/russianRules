@@ -1,9 +1,12 @@
 
 package com.rrules.services;
 
+import com.rrules.web.MessageDTO;
+import org.springframework.http.ResponseEntity;
+
 public interface RandomMessageService {
     
-    public String findCorrectMessage(boolean russianShot);
+    public ResponseEntity<MessageDTO> findCorrectMessage(boolean russianShot);
     
-    public String randomMessage(boolean russianRoulette);
+//    public ResponseEntity<MessageDTO> randomMessage(boolean russianRoulette);
 }
