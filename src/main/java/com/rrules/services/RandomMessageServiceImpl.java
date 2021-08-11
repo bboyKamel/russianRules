@@ -12,10 +12,10 @@ public class RandomMessageServiceImpl implements RandomMessageService {
         this.restTemplate = restTemplate;
     }
     
-    @Value("${bad.news.service.url}")
+    @Value("${news.service.url.bad}")
     String badNewsUrl;
     
-    @Value("${good.news.service.url}")
+    @Value("${news.service.url.good}")
     String goodNewsUrl;  
 
     RestTemplate restTemplate;

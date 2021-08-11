@@ -12,10 +12,10 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class RussianRulesConfiguration {
     
-    @Value("${bad.news.service.url}")
+    @Value("${news.service.url.bad}")
     String badNewsUrl;
     
-    @Value("${good.news.service.url}")
+    @Value("${news.service.url.good}")
     String goodNewsUrl;    
     
     @Bean

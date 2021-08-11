@@ -16,10 +16,10 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class NewsServiceController {
     
-    @Value("${bad.news.service.url}")
+    @Value("${news.service.url.bad}")
     String badNewsUrl;
     
-    @Value("${good.news.service.url}")
+    @Value("${news.service.url.good}")
     String goodNewsUrl;
     
     @Autowired

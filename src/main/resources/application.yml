@@ -1,0 +1,5 @@
+news:
+    service: 
+        url: 
+            good: http://localhost:8080/good-news/
+            bad: http://localhost:8080/bad-news/
