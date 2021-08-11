@@ -1,7 +1,6 @@
 
 package com.rrules;
 
-import com.rrules.services.RandomMessageService;
 import com.rrules.services.RandomMessageServiceImpl;
 import com.rrules.web.MessageDTO;
 import java.util.Date;
@@ -22,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 public class RandomMessageTest {
     
     @InjectMocks
-    public RandomMessageService randomMessageService;
+    public RandomMessageServiceImpl randomMessageService;
     
     @Mock
     public RestTemplate restTemplate;   
@@ -37,37 +36,53 @@ public class RandomMessageTest {
     
     @Test
     private void correctRandomize() {
-        
+        //         "{ \"endpoint\":\"url\" , \"message\":\"good\" }, \"timestamp\": null }",
     }
     
     @Test
-    public void shouldReturnCorrectMessage(){
+    public void shouldReturnGoodMessage(){
         
         HttpHeaders header = new HttpHeaders();
         header.setContentType(MediaType.APPLICATION_JSON);
 
-        responseEntity = new ResponseEntity<>(
-//         "{ \"endpoint\":\"url\" , \"message\":\"good\" }, \"timestamp\": null }",
-            new MessageDTO("", "", new Date()),
+        ResponseEntity<MessageDTO> goodResponseEntity = new ResponseEntity<>(
+            new MessageDTO("", "dobra wiadomosc", new Date()),
             header, 
             HttpStatus.OK
         );
         
-        randomMessageService = new RandomMessageServiceImpl(restTemplate);
-//        randomMessageService.setGoodNewsUrl("");
-//        randomMessageService.setBadNewsUrl("");
-//        randomMessageService.setResponse(responseEntity);
-        
         final String goodNews = "dobra wiadomosc";
-        final String badNews = "ZLA WIADOMOSC";
         
-        Mockito.when(randomMessageService.findCorrectMessage(true)).thenReturn(goodNews);
-        Mockito.when(randomMessageService.findCorrectMessage(false)).thenReturn(badNews);
+        randomMessageService = new RandomMessageServiceImpl(restTemplate);
+       
+        Mockito.when(randomMessageService.findCorrectMessage(true)).thenReturn(goodResponseEntity);
         
-        String goodResponse = randomMessageService.randomMessage(true);
-        String badResponse = randomMessageService.randomMessage(false);
-        System.out.println(goodResponse);
+        String goodResponse = randomMessageService.findCorrectMessage(true).getBody().getMessage();
+
         assertEquals(goodNews, goodResponse);
+    
+    }
+    
+    @Test
+    public void shouldReturnBadMessage(){
+        
+        HttpHeaders header = new HttpHeaders();
+        header.setContentType(MediaType.APPLICATION_JSON);
+
+        ResponseEntity<MessageDTO> badResponseEntity = new ResponseEntity<>(
+            new MessageDTO("", "ZLA WIADOMOSC", new Date()),
+            header, 
+            HttpStatus.OK
+        );
+        
+        randomMessageService = new RandomMessageServiceImpl(restTemplate);        
+
+        final String badNews = "ZLA WIADOMOSC";   
+
+        Mockito.when(randomMessageService.findCorrectMessage(false)).thenReturn(badResponseEntity);        
+
+        String badResponse = randomMessageService.findCorrectMessage(false).getBody().getMessage();       
+
         assertEquals(badNews, badResponse);
     
     }
