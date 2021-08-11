@@ -8,9 +8,9 @@ public class MessageDTO {
     public MessageDTO() {
     }
     
-    String endpoint;
-    String message;
-    Date timestamp;
+    private String endpoint;
+    private String message;
+    private Date timestamp;
 
     public MessageDTO(String endpoint, String message, Date timestamp) {
         this.endpoint = endpoint;
@@ -22,25 +22,12 @@ public class MessageDTO {
         return endpoint;
     }
 
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-    }
-
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public Date getTimestamp() {
         return timestamp;
-    }
-
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-    
+    }   
        
 }
