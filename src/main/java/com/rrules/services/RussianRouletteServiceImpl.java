@@ -25,7 +25,7 @@ public class RussianRouletteServiceImpl implements RussianRouletteService {
         return random != 1;
     }
     
-    public boolean secondRevolver(){
+    public boolean randomSpin(){
         int random = (int)(Math.random() * 6);
         return random != 1;
     }

@@ -33,7 +33,7 @@ public class NewsServiceController {
     
     @GetMapping(path = "/news", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity randomNews() {        
-        String message = randomMessageService.findCorrectMessage(rRouletteService.secondRevolver()).getBody().getMessage();        
+        String message = randomMessageService.findCorrectMessage(rRouletteService.randomSpin()).getBody().getMessage();        
     return new ResponseEntity(message, HttpStatus.OK);
     }
     
