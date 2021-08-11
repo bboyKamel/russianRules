@@ -1,7 +1,7 @@
 
 package com.rrules.services;
 
-import com.rrules.web.MessageDTO;
+import com.rrules.model.MessageDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;

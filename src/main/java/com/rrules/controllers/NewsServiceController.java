@@ -3,7 +3,7 @@ package com.rrules.controllers;
 
 import com.rrules.services.RandomMessageService;
 import com.rrules.services.RussianRouletteService;
-import com.rrules.web.MessageDTO;
+import com.rrules.model.MessageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
