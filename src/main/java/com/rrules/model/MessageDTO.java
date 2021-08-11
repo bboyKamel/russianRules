@@ -2,7 +2,9 @@
 package com.rrules.model;
 
 import java.util.Date;
+import lombok.Getter;
 
+@Getter
 public class MessageDTO {
 
     public MessageDTO() {
@@ -16,18 +18,5 @@ public class MessageDTO {
         this.endpoint = endpoint;
         this.message = message;
         this.timestamp = timestamp;
-    }
-
-    public String getEndpoint() {
-        return endpoint;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
-    }   
-       
+    }       
 }
