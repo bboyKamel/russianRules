@@ -7,10 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 public class RandomMessageServiceImpl implements RandomMessageService {
-
-    public RandomMessageServiceImpl(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
     
     @Value("${news.service.url.bad}")
     String badNewsUrl;
@@ -20,10 +16,14 @@ public class RandomMessageServiceImpl implements RandomMessageService {
 
     RestTemplate restTemplate;
     
-    ResponseEntity<MessageDTO> response; 
+    ResponseEntity<MessageDTO> response;
+    
+    public RandomMessageServiceImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public ResponseEntity<MessageDTO> findCorrectMessage(boolean whichMessage){
-        String serviceUrl = whichMessage == true ? goodNewsUrl : badNewsUrl;
+        String serviceUrl = whichMessage ? goodNewsUrl : badNewsUrl;
         response = restTemplate.getForEntity(serviceUrl, MessageDTO.class);
         return response;
     }
