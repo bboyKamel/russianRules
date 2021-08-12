@@ -33,7 +33,7 @@ public class NewsServiceController {
     
     @GetMapping(path = "/news", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity randomNews() {        
-        String message = randomMessageService.findCorrectMessage(rRouletteService.randomSpin()).getBody().getMessage();        
+        ResponseEntity<MessageDTO> message = randomMessageService.findCorrectMessage(rRouletteService.randomSpin());        
     return new ResponseEntity(message, HttpStatus.OK);
     }
     
@@ -41,13 +41,13 @@ public class NewsServiceController {
     public ResponseEntity goodNews() {        
         ResponseEntity<MessageDTO> response = restTemplate
             .getForEntity(goodNewsUrl, MessageDTO.class);        
-    return new ResponseEntity(response.getBody().getMessage(), HttpStatus.OK);
+    return new ResponseEntity(response, HttpStatus.OK);
     }
     
     @GetMapping(path = "/news/bad", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity badNews() {        
         ResponseEntity<MessageDTO> response = restTemplate
             .getForEntity(badNewsUrl, MessageDTO.class);        
-    return new ResponseEntity(response.getBody().getMessage(), HttpStatus.OK);
+    return new ResponseEntity(response, HttpStatus.OK);
     }
 }
