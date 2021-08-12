@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 public class RandomMessageServiceImpl implements RandomMessageService {
     
     @Value("${news.service.url.bad}")
-    String badNewsUrl;
+    String badNewsUrl;    
     
     @Value("${news.service.url.good}")
     String goodNewsUrl;  
@@ -17,11 +17,11 @@ public class RandomMessageServiceImpl implements RandomMessageService {
     RestTemplate restTemplate;
     
     ResponseEntity<MessageDTO> response;
-    
+
     public RandomMessageServiceImpl(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
-
+ 
     public ResponseEntity<MessageDTO> findCorrectMessage(boolean whichMessage){
         String serviceUrl = whichMessage ? goodNewsUrl : badNewsUrl;
         response = restTemplate.getForEntity(serviceUrl, MessageDTO.class);
