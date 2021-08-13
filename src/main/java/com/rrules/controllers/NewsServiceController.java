@@ -4,8 +4,10 @@ package com.rrules.controllers;
 import com.rrules.services.RandomMessageService;
 import com.rrules.services.RussianRouletteService;
 import com.rrules.model.MessageDTO;
+import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +49,7 @@ public class NewsServiceController {
     @GetMapping(path = "/news/bad", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity badNews() {        
         ResponseEntity<MessageDTO> response = restTemplate
-            .getForEntity(badNewsUrl, MessageDTO.class);        
-    return new ResponseEntity(response, HttpStatus.OK);
+            .getForEntity(badNewsUrl, MessageDTO.class);
+    return ResponseEntity.ok().cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS)).body(response);
     }
 }
