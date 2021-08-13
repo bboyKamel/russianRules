@@ -2,6 +2,7 @@
 package com.rrules.services;
 
 import com.rrules.model.MessageDTO;
+import com.rrules.model.NewsType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -22,8 +23,8 @@ public class RandomMessageServiceImpl implements RandomMessageService {
         this.restTemplate = restTemplate;
     }
  
-    public ResponseEntity<MessageDTO> findCorrectMessage(boolean whichMessage){
-        String serviceUrl = whichMessage ? goodNewsUrl : badNewsUrl;
+    public ResponseEntity<MessageDTO> findCorrectMessage(NewsType whichMessage){
+        String serviceUrl = whichMessage == NewsType.GOOD ? goodNewsUrl : badNewsUrl;
         response = restTemplate.getForEntity(serviceUrl, MessageDTO.class);
         return response;
     }
