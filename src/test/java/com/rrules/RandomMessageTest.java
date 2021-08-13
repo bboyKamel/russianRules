@@ -3,6 +3,7 @@ package com.rrules;
 
 import com.rrules.services.RandomMessageServiceImpl;
 import com.rrules.model.MessageDTO;
+import com.rrules.model.NewsType;
 import java.util.Date;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,9 +56,9 @@ public class RandomMessageTest {
         
         randomMessageService = new RandomMessageServiceImpl(restTemplate);
        
-        Mockito.when(randomMessageService.findCorrectMessage(true)).thenReturn(goodResponseEntity);
+        Mockito.when(randomMessageService.findCorrectMessage(NewsType.GOOD)).thenReturn(goodResponseEntity);
         
-        String goodResponse = randomMessageService.findCorrectMessage(true).getBody().getMessage();
+        String goodResponse = randomMessageService.findCorrectMessage(NewsType.GOOD).getBody().getMessage();
 
         assertEquals(goodNews, goodResponse);
     
@@ -79,9 +80,9 @@ public class RandomMessageTest {
 
         final String badNews = "ZLA WIADOMOSC";   
 
-        Mockito.when(randomMessageService.findCorrectMessage(false)).thenReturn(badResponseEntity);        
+        Mockito.when(randomMessageService.findCorrectMessage(NewsType.BAD)).thenReturn(badResponseEntity);        
 
-        String badResponse = randomMessageService.findCorrectMessage(false).getBody().getMessage();       
+        String badResponse = randomMessageService.findCorrectMessage(NewsType.BAD).getBody().getMessage();       
 
         assertEquals(badNews, badResponse);
     

@@ -2,6 +2,7 @@
 package com.rrules.services;
 
 import com.rrules.model.MessageDTO;
+import com.rrules.model.NewsType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
