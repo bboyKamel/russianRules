@@ -1,6 +1,7 @@
 
 package com.rrules;
 
+import com.rrules.model.NewsType;
 import com.rrules.services.RussianRouletteService;
 import com.rrules.services.RussianRouletteServiceImpl;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,7 +18,8 @@ public class RussianRouletteTest {
     }  
     
     @Test
-    private void shouldReturnCorrectTypeTest() {        
+    public void shouldReturnCorrectTypeTest() {
+        assertThat(rr.randomSpin()).isExactlyInstanceOf(NewsType.class);
 
     }
     
@@ -27,7 +29,7 @@ public class RussianRouletteTest {
         int countBad = 0;
         
         for(int i=0; i < 1000; i++){
-            if (rr.randomSpin() == false) countBad++;
+            if (rr.randomSpin().equals(NewsType.BAD)) countBad++;
         }
         
         assertTrue(countBad >= 150 && countBad <= 200);
