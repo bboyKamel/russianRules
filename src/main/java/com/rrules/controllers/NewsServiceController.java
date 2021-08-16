@@ -4,6 +4,7 @@ package com.rrules.controllers;
 import com.rrules.services.RandomMessageService;
 import com.rrules.services.RussianRouletteService;
 import com.rrules.model.MessageDTO;
+import com.rrules.model.NewsType;
 import java.util.concurrent.TimeUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,13 +42,13 @@ public class NewsServiceController {
     
     @GetMapping(path = "/news/good", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity goodNews() {        
-        ResponseEntity<MessageDTO> response = randomMessageService.findCorrectMessage(true);                    
+        ResponseEntity<MessageDTO> response = randomMessageService.findCorrectMessage(NewsType.GOOD);                    
     return new ResponseEntity(response, HttpStatus.OK);
     }
     
     @GetMapping(path = "/news/bad", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity badNews() {        
-        ResponseEntity<MessageDTO> response = randomMessageService.findCorrectMessage(false);
+        ResponseEntity<MessageDTO> response = randomMessageService.findCorrectMessage(NewsType.BAD);
     return ResponseEntity.ok().cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS)).body(response);
     }
 }

@@ -27,9 +27,9 @@ public class RandomMessageServiceImpl implements RandomMessageService {
     }
  
     @Cacheable("news")
-    public ResponseEntity<MessageDTO> findCorrectMessage(boolean whichMessage){
+    public ResponseEntity<MessageDTO> findCorrectMessage(NewsType whichMessage){
         System.out.println("news finding");
-        String serviceUrl = whichMessage ? goodNewsUrl : badNewsUrl;
+        String serviceUrl = whichMessage.equals(NewsType.GOOD) ? goodNewsUrl : badNewsUrl;
         response = restTemplate.getForEntity(serviceUrl, MessageDTO.class);
         return response;
     }
