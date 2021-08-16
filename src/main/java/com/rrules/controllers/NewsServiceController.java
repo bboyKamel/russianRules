@@ -41,15 +41,13 @@ public class NewsServiceController {
     
     @GetMapping(path = "/news/good", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity goodNews() {        
-        ResponseEntity<MessageDTO> response = restTemplate
-            .getForEntity(goodNewsUrl, MessageDTO.class);        
+        ResponseEntity<MessageDTO> response = randomMessageService.findCorrectMessage(true);                    
     return new ResponseEntity(response, HttpStatus.OK);
     }
     
     @GetMapping(path = "/news/bad", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity badNews() {        
-        ResponseEntity<MessageDTO> response = restTemplate
-            .getForEntity(badNewsUrl, MessageDTO.class);
+        ResponseEntity<MessageDTO> response = randomMessageService.findCorrectMessage(false);
     return ResponseEntity.ok().cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS)).body(response);
     }
 }
