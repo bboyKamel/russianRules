@@ -20,7 +20,6 @@ public class RussianRouletteTest {
     @Test
     public void shouldReturnCorrectTypeTest() {
         assertThat(rr.randomSpin()).isExactlyInstanceOf(NewsType.class);
-
     }
     
     @Test
