@@ -21,6 +21,16 @@ public class RussianRulesConfiguration {
     String goodNewsUrl;    
     
     @Bean
+    String goodNewsUrl() {
+        return goodNewsUrl;
+    }
+    
+    @Bean
+    String badNewsUrl() {
+        return badNewsUrl;
+    }  
+    
+    @Bean
     RussianRouletteService russianRouletteService() {
         return new RussianRouletteServiceImpl();
     }

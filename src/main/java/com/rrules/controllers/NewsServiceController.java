@@ -6,9 +6,8 @@ import com.rrules.services.RussianRouletteService;
 import com.rrules.model.MessageDTO;
 import com.rrules.model.NewsType;
 import java.util.concurrent.TimeUnit;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.CacheControl;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,21 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-public class NewsServiceController {
+@AllArgsConstructor
+public class NewsServiceController {    
     
-    @Value("${news.service.url.bad}")
-    String badNewsUrl;
+    String badNewsUrl;    
     
-    @Value("${news.service.url.good}")
-    String goodNewsUrl;
+    String goodNewsUrl;    
     
-    @Autowired
-    RussianRouletteService rRouletteService;
+    RussianRouletteService rRouletteService;    
     
-    @Autowired
-    RandomMessageService randomMessageService;
+    RandomMessageService randomMessageService;    
     
-    @Autowired
     RestTemplate restTemplate;
     
     @GetMapping(path = "/news", produces = MediaType.APPLICATION_JSON_VALUE)
