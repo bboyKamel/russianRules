@@ -13,6 +13,7 @@ public class MessageDTO {
     private String endpoint;
     private String message;
     private Date timestamp;
+    private Date receivedTime = new Date();;
 
     public MessageDTO(String endpoint, String message, Date timestamp) {
         this.endpoint = endpoint;
