@@ -27,7 +27,7 @@ public class RussianRulesConfiguration {
     
     @Bean
     RandomMessageService randomMessageService(RestTemplate restTemplate) {
-        return new RandomMessageServiceImpl(restTemplate);
+        return new RandomMessageServiceImpl(badNewsUrl, goodNewsUrl, restTemplate);
     }
     
     @Bean

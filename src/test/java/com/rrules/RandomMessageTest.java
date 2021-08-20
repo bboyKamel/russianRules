@@ -1,91 +1,79 @@
 
 package com.rrules;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import com.rrules.services.RandomMessageServiceImpl;
 import com.rrules.model.MessageDTO;
 import com.rrules.model.NewsType;
-import java.util.Date;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpHeaders;
+import com.rrules.services.RandomMessageService;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import org.mockito.Mockito;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Value;
 
-@SpringBootTest
+@RunWith(MockitoJUnitRunner.class)
 public class RandomMessageTest {
     
-    @InjectMocks
-    public RandomMessageServiceImpl randomMessageService;
+    public RandomMessageService randomMessageService;   
+
+    @Value("${news.service.url.good}")
+    String goodNewsUrl;
+    
+    @Value("${news.service.url.bad}")
+    String badNewsUrl;    
     
     @Mock
-    public RestTemplate restTemplate;   
-    
-    @Mock
-    ResponseEntity<MessageDTO> responseEntity;
+    private RestTemplate restTemplate;
+
+    @Before
+    public void setUp(){
+       randomMessageService = new RandomMessageServiceImpl(badNewsUrl, goodNewsUrl, restTemplate);
+    }
     
     @Test
     public void contextLoads() throws Exception {
-	assertThat(randomMessageService).isNotNull();
-    }    
-    
-    @Test
-    private void correctRandomize() {
-        //         "{ \"endpoint\":\"url\" , \"message\":\"good\" }, \"timestamp\": null }",
-    }
-    
+	assertNotNull(randomMessageService);
+    } 
+
     @Test
     public void shouldReturnGoodMessage(){
         
-        HttpHeaders header = new HttpHeaders();
-        header.setContentType(MediaType.APPLICATION_JSON);
-
-        ResponseEntity<MessageDTO> goodResponseEntity = new ResponseEntity<>(
-            new MessageDTO("", "dobra wiadomosc", new Date()),
-            header, 
-            HttpStatus.OK
-        );
-        
         final String goodNews = "dobra wiadomosc";
         
-        randomMessageService = new RandomMessageServiceImpl(restTemplate);
-       
-        Mockito.when(randomMessageService.findCorrectMessage(NewsType.GOOD)).thenReturn(goodResponseEntity);
+        Mockito.when(restTemplate.getForEntity(goodNewsUrl, MessageDTO.class))
+                .thenReturn(new ResponseEntity(new MessageDTO(null, "dobra wiadomosc", null), null, HttpStatus.OK));
         
-        String goodResponse = randomMessageService.findCorrectMessage(NewsType.GOOD).getBody().getMessage();
+        String goodResponse = randomMessageService.findCorrectMessage(NewsType.GOOD)
+                .getBody()
+                .getMessage();
 
-        assertEquals(goodNews, goodResponse);
-    
+        assertEquals(goodNews, goodResponse);    
     }
     
     @Test
-    public void shouldReturnBadMessage(){
-        
-        HttpHeaders header = new HttpHeaders();
-        header.setContentType(MediaType.APPLICATION_JSON);
-
-        ResponseEntity<MessageDTO> badResponseEntity = new ResponseEntity<>(
-            new MessageDTO("", "ZLA WIADOMOSC", new Date()),
-            header, 
-            HttpStatus.OK
-        );
-        
-        randomMessageService = new RandomMessageServiceImpl(restTemplate);        
+    public void shouldReturnBadMessage(){     
 
         final String badNews = "ZLA WIADOMOSC";   
 
-        Mockito.when(randomMessageService.findCorrectMessage(NewsType.BAD)).thenReturn(badResponseEntity);        
+        Mockito.when(restTemplate.getForEntity(badNewsUrl, MessageDTO.class))
+                .thenReturn(new ResponseEntity(new MessageDTO(null, "ZLA WIADOMOSC", null), null, HttpStatus.OK));                       
 
-        String badResponse = randomMessageService.findCorrectMessage(NewsType.BAD).getBody().getMessage();       
+        String badResponse = randomMessageService.findCorrectMessage(NewsType.BAD)
+                .getBody()
+                .getMessage();       
 
-        assertEquals(badNews, badResponse);
-    
+        assertEquals(badNews, badResponse);    
     }
 
+//    @Test
+//    private void correctRandomize() {
+        //         "{ \"endpoint\":\"url\" , \"message\":\"good\" }, \"timestamp\": null }",
+//    }
 }

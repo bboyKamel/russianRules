@@ -15,14 +15,17 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-cache'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+//	testImplementation('org.springframework.boot:spring-boot-starter-test')
+        testImplementation("junit:junit:4.13.2")
+        testCompile 'org.mockito:mockito-core:2.23.4'
         compileOnly 'org.projectlombok:lombok:1.18.8'
         annotationProcessor 'org.projectlombok:lombok:1.18.8'
 }
 
-test {
-	useJUnitPlatform()
-}
+//test {
+//	useJUnitPlatform()
+//}
 
 bootRun {
     args += ["--server.port=8093"]

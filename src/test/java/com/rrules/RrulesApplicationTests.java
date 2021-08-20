@@ -1,9 +1,11 @@
 package com.rrules;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 
-@SpringBootTest
+
+@RunWith(MockitoJUnitRunner.class)
 class RrulesApplicationTests {
 
 	@Test
